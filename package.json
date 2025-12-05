@@ -1,6 +1,6 @@
 {
   "name": "tiny-pager",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "simple pager optionally without numbers",
   "type": "module",
   "exports": "./index.js",
