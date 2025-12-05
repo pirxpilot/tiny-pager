@@ -2,19 +2,21 @@
   "name": "tiny-pager",
   "version": "1.0.0",
   "description": "simple pager optionally without numbers",
+  "type": "module",
+  "exports": "./index.js",
   "scripts": {
     "test": "make check"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/pirxpilot/pager.git"
+    "url": "git+https://github.com/pirxpilot/tiny-pager.git"
   },
   "keywords": [
     "browser"
   ],
   "dependencies": {
-    "el-component": "^1.0.1",
-    "component-emitter": "^1.1.1"
+    "component-emitter": "~2",
+    "el-component": "~2"
   },
   "browser": {
     "el": "el-component",
@@ -25,5 +27,9 @@
   "files": [
     "index.js",
     "pager.css"
-  ]
+  ],
+  "devDependencies": {
+    "@biomejs/biome": "2.3.8",
+    "esbuild": "^0.27.1"
+  }
 }
