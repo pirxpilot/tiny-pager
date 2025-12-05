@@ -1,3 +1,6 @@
+[![NPM version][npm-image]][npm-url]
+[![Build Status][build-image]][build-url]
+
 # pager
 
   Simple pager optionally without numbers.
@@ -49,4 +52,10 @@ Selects n-th page - n is 0-based
 
 ## License
 
-  MIT
+MIT © [Damian Krzeminski](https://pirxpilot.me)
+
+[npm-image]: https://img.shields.io/npm/v/tiny-pager
+[npm-url]: https://npmjs.org/package/tiny-pager
+
+[build-url]: https://github.com/pirxpilot/tiny-pager/actions/workflows/check.yaml
+[build-image]: https://img.shields.io/github/actions/workflow/status/pirxpilot/tiny-pager/check.yaml?branch=main

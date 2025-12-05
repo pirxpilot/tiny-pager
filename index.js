@@ -1,67 +1,52 @@
-var Emitter = require('emitter');
-var el = require('el');
+import Emitter from 'component-emitter';
+import el from 'el-component';
 
-module.exports = Pager;
+export default class Pager extends Emitter {
+  #total = 0;
+  #current = 0;
 
-function Pager(el) {
-  if (!(this instanceof Pager)) {
-    return new Pager(el);
+  constructor(el) {
+    super();
+    this.el = el;
+    el.addEventListener('click', this.onclick.bind(this));
   }
-  this._total = 0;
-  this._current = 0;
-  this.el = el;
-  el.addEventListener('click', this.onclick.bind(this));
+
+  total(t) {
+    this.#total = t;
+    return this;
+  }
+
+  onclick(e) {
+    const target = e.target || e.srcElement;
+    const page = Array.prototype.indexOf.call(this.el.children, target);
+    if (page < 0) {
+      return;
+    }
+    e.preventDefault();
+    e.stopPropagation();
+    this.select(page);
+  }
+
+  select(page, opts) {
+    if (page === this.#current) {
+      return;
+    }
+    Array.prototype.forEach.call(this.el.children, (a, i) => {
+      a.className = i === page ? 'active' : 'inactive';
+    });
+    this.#current = page;
+    if (!opts?.silent) {
+      this.emit('show', this.#current);
+    }
+    return this;
+  }
+
+  render() {
+    const html = new Array(this.#total);
+    for (let i = 0; i < this.#total; i++) {
+      html[i] = el(i !== this.#current ? 'a.inactive' : 'a.active');
+    }
+    this.el.innerHTML = html.join('');
+    return this;
+  }
 }
-
-Emitter(Pager.prototype);
-
-
-Pager.prototype.total = function total(t) {
-  this._total = t;
-  return this;
-};
-
-Pager.prototype.onclick = function onclick(e) {
-  var page, target = e.target || e.srcElement;
-  page = Array.prototype.indexOf.call(this.el.children, target);
-  if (page < 0) {
-    return;
-  }
-  e.preventDefault();
-  e.stopPropagation();
-  this.select(page);
-};
-
-Pager.prototype.select = function select(page, opts) {
-  var silent = opts && opts.silent;
-  if (page === this._current) {
-    return;
-  }
-  Array.prototype.forEach.call(this.el.children, function(a, i) {
-    a.className = (i == page) ? 'active' : 'inactive';
-  });
-  this._current = page;
-  if (!silent) {
-    this.emit('show', this._current);
-  }
-  return this;
-};
-
-Pager.prototype.render = function render() {
-  var i, html = [];
-  for(i = 0; i < this._total; i++) {
-    html.push(i !== this._current ? 'a.inactive' : 'a.active');
-  }
-  this.el.innerHTML = html.map(function(item) {
-    return el(item);
-  }).join('');
-  return this;
-};
-
-
-
-
-
-
-
-

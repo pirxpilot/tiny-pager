@@ -1,8 +1,8 @@
 <html>
   <head>
     <title>Pager</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <link href="./build/build.css" rel="stylesheet" type="text/css">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link href="pager.css" rel="stylesheet" type="text/css" />
     <style>
       * {
         margin: 0;
@@ -39,17 +39,19 @@
   <body>
     <div class="pager numeric"></div>
     <div class="pager symbolic"></div>
-    <p>Page selected: [<span class='page'>select page</span>]<p>
-    <script src="build/build.js"></script>
-    <script>
-      var pager = require('pager');
-      var numeric = pager(document.querySelector('.numeric')).total(5).render();
-      var symbolic = pager(document.querySelector('.symbolic')).total(5).render();
-      function on(page) {
-        document.querySelector('.page').innerText = page;
-      }
-      numeric.on('show', on);
-      symbolic.on('show', on);
-    </script>
+    <p>Page selected: [<span class="page">select page</span>]</p>
+    <p>
+      <script src="build/build.js"></script>
+      <script>
+        const { default: Pager } = pager;
+        const numeric = new Pager(document.querySelector('.numeric')).total(5).render();
+        const symbolic = new Pager(document.querySelector('.symbolic')).total(5).render();
+        function on(page) {
+          document.querySelector('.page').innerText = page;
+        }
+        numeric.on('show', on);
+        symbolic.on('show', on);
+      </script>
+    </p>
   </body>
 </html>
